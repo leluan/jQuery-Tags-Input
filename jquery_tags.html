@@ -1,0 +1,30 @@
+<link rel="stylesheet" type="text/css" href="jquery.tagsinput.css" />
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
+<script type="text/javascript" src="jquery.tagsinput.js"></script>
+<script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.13/jquery-ui.min.js'></script>
+<link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.13/themes/start/jquery-ui.css" />
+<script type="text/javascript">
+$(function() {	
+	$('#tags_tg').tagsInput({
+		width: 'auto',
+		onChange: function(elem, elem_tags){
+			var languages = ['php','mysql','javascript','jquery','ajax'];
+			$('.tag', elem_tags).each(function(){
+				if($(this).text().search(new RegExp('\\b(' + languages.join('|') + ')\\b')) >= 0){
+					//$(this).css('background-color', 'yellow');
+				}
+			});				
+			var tempValue = "";
+			tempValue = $("#tags_tg").map(function(n){  //map all the added value to tempValue with ',' seperated
+            	return this.value;
+  			}).get().join(',');
+   			$("#added_tags").val(tempValue);			
+		}
+	});	
+});
+</script>
+<form name="jquery_tagging" method="post" action="" enctype="multipart/form-data">
+	<p><label>Default Tags:</label>	 
+	<input type="hidden" name="added_tags" id="added_tags" />
+	<input id="tags_tg" type="text" class="tags" value="foo,bar,baz" /></p>	
+</form>
